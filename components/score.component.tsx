@@ -5,21 +5,21 @@ import { GameContext } from './gameProvider.component';
 const StyledScoreBoard = styled.div`
   background: var(--color-white);
   box-shadow: var(--box-shadow);
-  padding: 1rem 2rem;
+  padding: 1.6rem 2.4rem;
   border-radius: var(--border-radius);
   text-align: center;
 
   h2 {
     color: var(--color-accent);
-    font-size: 0.75rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    letter-spacing: var(--letter-spacing);
   }
 `;
 
 const StyledScore = styled.div`
   color: var(--color-dark);
-  font-size: 3rem;
+  font-size: 4.8rem;
   font-weight: 700;
 `;
 

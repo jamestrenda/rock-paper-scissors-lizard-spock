@@ -8,12 +8,20 @@ export const StyledPicks = styled.div`
   text-align: center;
 
   ${StyledChip} {
-    width: 125px;
-    height: 125px;
-
+    --width: 14rem;
+    width: var(--width) !important;
+    height: var(--width) !important;
+    &::before {
+       width: calc(var(--width) - 2.25rem) !important;
+      height: calc(var(--width) - 2rem) !important;
+    }
+    &::after {
+      width: var(--width) !important;
+      height: var(--width) !important;
+      
+    }
     img {
-      width: 50px !important;
-      height: 50px !important;
+      width: 4rem !important;
   }
 `;
 

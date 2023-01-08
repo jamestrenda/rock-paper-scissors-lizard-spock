@@ -9,12 +9,12 @@ import { Picks } from './picks.component';
 const StyledPlay = styled.div`
   display: grid;
   place-items: center;
-  margin-top: 3rem;
+  margin-top: 4.8rem;
 `;
 
 const StyledResult = styled.p`
-  font-size: 3rem;
-  margin: 3rem 0 1rem;
+  font-size: 4.8rem;
+  margin: 4.8rem 0 1.6rem;
 `;
 
 export const Play = () => {

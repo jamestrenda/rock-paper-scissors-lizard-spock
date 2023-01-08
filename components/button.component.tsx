@@ -6,10 +6,9 @@ const StyledButton = styled.button`
   background: var(--color-white);
   border-radius: var(--border-radius);
   font-family: var(--font-family);
-  font-size: 1rem;
   text-transform: uppercase;
   color: var(--color-dark);
-  padding: 1rem;
+  padding: 1.6rem;
   min-width: 250px;
 `;
 
