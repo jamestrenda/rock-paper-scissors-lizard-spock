@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Score } from './score';
+import { Score } from './score.component';
 
 const StyledHeader = styled.header`
   border: 5px solid var(--color-header-outline);
@@ -15,6 +15,7 @@ const StyledHeader = styled.header`
     line-height: 0.85;
     padding: 0.5rem;
     text-shadow: var(--text-shadow);
+    letter-spacing: 0;
   }
 `;
 

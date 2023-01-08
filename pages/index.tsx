@@ -1,13 +1,5 @@
-import { Header } from '@/components/header';
+import { Play } from '@/components/play.component';
 
 export default function Home() {
-  return (
-    <>
-      <Header />
-      <main>
-        <div>Game</div>
-        <div>Rules</div>
-      </main>
-    </>
-  );
+  return <Play />;
 }

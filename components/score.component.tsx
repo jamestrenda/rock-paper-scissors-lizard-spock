@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { GameContext } from './gameProvider.component';
 
 const StyledScoreBoard = styled.div`
   background: var(--color-white);
@@ -22,10 +24,13 @@ const StyledScore = styled.div`
 `;
 
 export const Score = () => {
+  const {
+    state: { score },
+  } = useContext(GameContext);
   return (
     <StyledScoreBoard>
       <h2>Score</h2>
-      <StyledScore>12</StyledScore>
+      <StyledScore>{score}</StyledScore>
     </StyledScoreBoard>
   );
 };
