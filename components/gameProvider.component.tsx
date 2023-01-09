@@ -16,6 +16,7 @@ interface Props {
 }
 
 interface StateProps {
+  start: boolean;
   userChoice?: Option | null;
   computerChoice?: Option | null;
   winner?: boolean | null;
@@ -24,6 +25,7 @@ interface StateProps {
 }
 
 export enum ReducerActionType {
+  START,
   SET_USER_CHOICE,
   SET_COMPUTER_CHOICE,
   SET_WINNER,
@@ -37,6 +39,7 @@ interface GameContext {
   dispatch?: Dispatch<any>;
 }
 const initialState = {
+  start: false,
   userChoice: null,
   computerChoice: null,
   winner: null,
@@ -53,6 +56,9 @@ export type ReducerAction = {
 };
 const reducer: Reducer<StateProps, ReducerAction> = (state, action) => {
   switch (action.type) {
+    case ReducerActionType.START: {
+      return { ...state, start: true };
+    }
     case ReducerActionType.SET_USER_CHOICE: {
       return { ...state, userChoice: action.payload };
     }
@@ -72,6 +78,7 @@ const reducer: Reducer<StateProps, ReducerAction> = (state, action) => {
       return {
         ...initialState,
         score: state.score,
+        start: true,
       };
     }
     default:

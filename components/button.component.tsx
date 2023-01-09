@@ -12,14 +12,12 @@ const StyledButton = styled.button`
   min-width: 250px;
 `;
 
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
-export const Button = ({
-  onClick,
-  children,
-}: {
+export const Button: FC<{
+  size?: 'small' | 'medium' | 'large' | undefined;
   onClick?: () => void;
   children: ReactNode;
-}) => {
+}> = ({ size = 'medium', onClick, children }) => {
   return <StyledButton onClick={onClick}>{children}</StyledButton>;
 };

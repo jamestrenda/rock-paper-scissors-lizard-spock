@@ -1,5 +1,13 @@
-import Image from 'next/image';
-import { FC, useContext } from 'react';
+import {
+  LazyMotion,
+  domAnimation,
+  m,
+  AnimatePresence,
+  useMotionValue,
+  useMotionValueEvent,
+  useAnimationControls,
+} from 'framer-motion';
+import { FC, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { GameContext, ReducerActionType } from './gameProvider.component';
 import { Chip } from './chip.component';
@@ -36,20 +44,39 @@ export const Spock: Option = {
   color: 'var(--color-spock)',
 };
 
-export const choices: Option[] = [Rock, Paper, Scissors, Lizard, Spock];
+export const choices: Option[] = [Scissors, Paper, Rock, Lizard, Spock];
 
 export interface Props {
   option: Option;
+  position?: string;
+  initial?: string;
 }
 
-const StyledChoice = styled.button`
+const initialPos = 'translate(-50%, -50%)';
+
+const StyledChoice = styled(m.button)`
   background: none;
   appearance: none;
   border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: ${initialPos};
 `;
 
-export const Choice: FC<Props> = ({ option }) => {
-  const { state, dispatch } = useContext(GameContext);
+export const Choice: FC<Props> = ({ option, position }) => {
+  const { dispatch } = useContext(GameContext);
+
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    const playSound = async () => {
+      const audio = new Audio(`/sounds/deal.m4a`);
+      await controls.start({ transform: position });
+      await audio.play();
+    };
+    playSound();
+  }, []);
 
   const handleChoice = (option: Option): void => {
     if (dispatch) {
@@ -59,14 +86,22 @@ export const Choice: FC<Props> = ({ option }) => {
       });
     }
   };
+
   return (
-    <StyledChoice
-      type="button"
-      onClick={() => handleChoice(option)}
-      title={`Choose ${option.name}`}
-      color={option.color}
-    >
-      <Chip name={option.name} color={option.color} />
-    </StyledChoice>
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence>
+        <StyledChoice
+          type="button"
+          onClick={() => handleChoice(option)}
+          title={`Choose ${option.name}`}
+          color={option.color}
+          animate={controls}
+          transition={{ duration: 0.2, delay: 0.15 * choices.indexOf(option) }}
+          initial={{ transform: initialPos }}
+        >
+          <Chip name={option.name} color={option.color} />
+        </StyledChoice>
+      </AnimatePresence>
+    </LazyMotion>
   );
 };

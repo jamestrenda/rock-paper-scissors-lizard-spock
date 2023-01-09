@@ -19,9 +19,17 @@ const StyledResult = styled.p`
 
 export const Play = () => {
   const {
-    state: { userChoice, computerChoice, winner, tie },
+    state: { start, userChoice, computerChoice, winner, tie },
     dispatch,
   } = useContext(GameContext);
+
+  const handleStart = () => {
+    if (dispatch) {
+      dispatch({
+        type: ReducerActionType.START,
+      });
+    }
+  };
 
   const handleComputerChoice = () => {
     const choice = choices[Math.floor(Math.random() * choices.length)];
@@ -40,7 +48,10 @@ export const Play = () => {
       );
     }
   };
-
+  const playSound = async (path: string) => {
+    const audio = new Audio(path);
+    await audio.play();
+  };
   const handleWinner = () => {
     // TODO: add sound fx
     // TODO: add animation
@@ -66,6 +77,7 @@ export const Play = () => {
         });
 
         if (winner) {
+          playSound(`/sounds/bell.m4a`);
           dispatch({
             type: ReducerActionType.INCREMENT_SCORE,
           });
@@ -76,6 +88,7 @@ export const Play = () => {
 
   useEffect(() => {
     if (userChoice) {
+      playSound(`/sounds/time.m4a`);
       handleComputerChoice();
     }
   }, [userChoice]);
@@ -94,7 +107,13 @@ export const Play = () => {
     }
   };
 
-  return (
+  return !start ? (
+    <StyledPlay>
+      <Button onClick={handleStart} size="large">
+        Start
+      </Button>
+    </StyledPlay>
+  ) : (
     <StyledPlay>
       {userChoice ? (
         <Picks />
